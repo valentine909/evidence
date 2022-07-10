@@ -12,7 +12,7 @@ export class BandsService {
     findAll(limit: number, offset: number): Observable<AxiosResponse<any>> {
         return this.http
             .get(Microservice.bands, {
-                params: { limit: limit, offset: offset },
+                params: { limit, offset },
             })
             .pipe(
                 catchError(() => {
@@ -37,25 +37,18 @@ export class BandsService {
         );
     }
 
-    updateBand(
-        id: string,
-        band: BandInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    updateBand(id: string, band: BandInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.put(`${Microservice.bands}/${id}`, band, config).pipe(
             catchError(() => {
-                throw WrongInputError;
+                throw InvalidInput;
             }),
         );
     }
 
-    deleteBand(
-        id: string,
-        config: IConfig,
-    ): Observable<AxiosResponse<DeleteResponse>> {
+    deleteBand(id: string, config: IConfig): Observable<AxiosResponse<DeleteResponse>> {
         return this.http.delete(`${Microservice.bands}/${id}`, config).pipe(
             catchError(() => {
-                throw WrongInputError;
+                throw InvalidInput;
             }),
         );
     }

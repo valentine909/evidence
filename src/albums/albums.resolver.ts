@@ -47,18 +47,21 @@ export class AlbumsResolver {
         const response = await lastValueFrom(
             this.albumsService.findAll(limit, offset),
         );
+
         return mapIdInArray(response.data.items);
     }
 
     @Query('album')
     async getAlbum(@Args('id') id: string) {
         const response = await lastValueFrom(this.albumsService.findOneById(id));
+
         return mapId(response.data);
     }
 
     @ResolveField()
     async bands(@Parent() album) {
         const { bandsIds } = album;
+
         return bandsIds.map(async (bandId) => {
             const band = await lastValueFrom(this.bandsService.findOneById(bandId));
             return mapId(band.data);
@@ -68,10 +71,12 @@ export class AlbumsResolver {
     @ResolveField()
     async genres(@Parent() album) {
         const { genresIds } = album;
+
         return genresIds.map(async (genresId) => {
             const genre = await lastValueFrom(
                 this.genresService.findOneById(genresId),
             );
+
             return mapId(genre.data);
         });
     }
@@ -79,10 +84,12 @@ export class AlbumsResolver {
     @ResolveField()
     async artists(@Parent() album) {
         const { artistsIds } = album;
+
         return artistsIds.map(async (artistsId) => {
             const artist = await lastValueFrom(
                 this.artistsService.findOneById(artistsId),
             );
+
             return mapId(artist.data);
         });
     }
@@ -90,10 +97,12 @@ export class AlbumsResolver {
     @ResolveField()
     async tracks(@Parent() album) {
         const { trackIds } = album;
+
         return trackIds.map(async (trackId) => {
             const track = await lastValueFrom(
                 this.tracksService.findOneById(trackId),
             );
+
             return mapId(track.data);
         });
     }
@@ -105,12 +114,14 @@ export class AlbumsResolver {
     ): Promise<Album> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const mappedAlbum = mapGenresId(
             mapTracksId(mapArtistsId(mapBandsId(album))),
         );
         const response = await lastValueFrom(
             this.albumsService.createAlbum(mappedAlbum, config),
         );
+
         return mapId(response.data);
     }
 
@@ -122,12 +133,14 @@ export class AlbumsResolver {
     ): Promise<Album> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const mappedAlbum = mapGenresId(
             mapTracksId(mapArtistsId(mapBandsId(album))),
         );
         const response = await lastValueFrom(
             this.albumsService.updateAlbum(id, mappedAlbum, config),
         );
+
         return mapId(response.data);
     }
 
@@ -138,9 +151,11 @@ export class AlbumsResolver {
     ): Promise<DeleteResponse> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const response = await lastValueFrom(
             this.albumsService.deleteAlbum(id, config),
         );
+
         return response.data;
     }
 }

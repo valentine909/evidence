@@ -13,18 +13,21 @@ export class UsersResolver {
     @Query('user')
     async getUser(@Args('id') id: string): Promise<User> {
         const response = await lastValueFrom(this.usersService.getUser(id));
+
         return mapId(response.data);
     }
 
     @Query('jwt')
     async getJWT(@Args('login') login: LoginInput): Promise<JWT> {
         const response = await lastValueFrom(this.usersService.getJWT(login));
+
         return response.data;
     }
 
     @Mutation('register')
     async create(@Args('user') user: UserInput): Promise<User> {
         const response = await lastValueFrom(this.usersService.register(user));
+
         return mapId(response.data);
     }
 }

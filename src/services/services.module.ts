@@ -1,19 +1,33 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { UsersService } from './users.service';
-import { AlbumsModule } from '../artists/albums.module';
-import { TracksModule } from '../tracks/tracks.module';
+import { AlbumsService } from './albums.service';
+import { TracksService } from './tracks.service';
+import { ArtistsService } from './artists.service';
+import { BandsService } from './bands.service';
+import { FavouritesService } from './favourites.service';
+import { GenresService } from './genres.service';
 
 
 @Module({
     imports: [HttpModule],
     providers: [
         UsersService,
-        AlbumsModule,
-        TracksModule,
+        AlbumsService,
+        TracksService,
+        ArtistsService,
+        BandsService,
+        GenresService,
+        FavouritesService,
     ],
     exports: [
         UsersService,
+        AlbumsService,
+        TracksService,
+        ArtistsService,
+        BandsService,
+        GenresService,
+        FavouritesService,
     ],
 })
 export class ServicesModule {}

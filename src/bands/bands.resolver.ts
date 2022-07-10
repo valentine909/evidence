@@ -35,23 +35,27 @@ export class BandsResolver {
         const response = await lastValueFrom(
             this.bandsService.findAll(limit, offset),
         );
+
         return mapIdInArray(response.data.items);
     }
 
     @Query('band')
     async getBand(@Args('id') id: string) {
         const response = await lastValueFrom(this.bandsService.findOneById(id));
+
         return mapId(response.data);
     }
 
     @ResolveField()
     async members(@Parent() band) {
         const { members } = band;
+
         return members.map(async (member) => {
             const rawArtist = await lastValueFrom(
                 this.artistsService.findOneById(member.artist),
             );
             const artist = mapId(rawArtist.data);
+
             return { ...member, artist };
         });
     }
@@ -59,10 +63,12 @@ export class BandsResolver {
     @ResolveField()
     async genres(@Parent() band) {
         const { genresIds } = band;
+
         return genresIds.map(async (genreId) => {
             const genre = await lastValueFrom(
                 this.genresService.findOneById(genreId),
             );
+
             return mapId(genre.data);
         });
     }
@@ -74,10 +80,12 @@ export class BandsResolver {
     ): Promise<Band> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const mappedBand = mapGenresId(band);
         const response = await lastValueFrom(
             this.bandsService.createBand(mappedBand, config),
         );
+
         return mapId(response.data);
     }
 
@@ -89,10 +97,12 @@ export class BandsResolver {
     ): Promise<Band> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const mappedBand = mapGenresId(band);
         const response = await lastValueFrom(
             this.bandsService.updateBand(id, mappedBand, config),
         );
+
         return mapId(response.data);
     }
 
@@ -103,9 +113,11 @@ export class BandsResolver {
     ): Promise<DeleteResponse> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const response = await lastValueFrom(
             this.bandsService.deleteBand(id, config),
         );
+
         return response.data;
     }
 }

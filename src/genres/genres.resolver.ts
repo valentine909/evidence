@@ -23,12 +23,14 @@ export class GenresResolver {
         const response = await lastValueFrom(
             this.genresService.findAll(limit, offset),
         );
+
         return mapIdInArray(response.data.items);
     }
 
     @Query('genre')
     async getGenre(@Args('id') id: string) {
         const response = await lastValueFrom(this.genresService.findOneById(id));
+
         return mapId(response.data);
     }
 
@@ -39,9 +41,11 @@ export class GenresResolver {
     ): Promise<Genre> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const response = await lastValueFrom(
             this.genresService.createGenre(genre, config),
         );
+
         return mapId(response.data);
     }
 
@@ -53,9 +57,11 @@ export class GenresResolver {
     ): Promise<Genre> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const response = await lastValueFrom(
             this.genresService.updateGenre(id, genre, config),
         );
+
         return mapId(response.data);
     }
 
@@ -66,9 +72,11 @@ export class GenresResolver {
     ): Promise<DeleteResponse> {
         const config = getAuthHeaders(req.headers.authorization);
         await this.userService.verifyToken(config);
+
         const response = await lastValueFrom(
             this.genresService.deleteGenre(id, config),
         );
+
         return response.data;
     }
 }

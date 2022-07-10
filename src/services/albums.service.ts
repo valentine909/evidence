@@ -12,7 +12,7 @@ export class AlbumsService {
     findAll(limit: number, offset: number): Observable<AxiosResponse<any>> {
         return this.http
             .get(Microservice.albums, {
-                params: { limit: limit, offset: offset },
+                params: { limit, offset },
             })
             .pipe(
                 catchError(() => {
@@ -29,10 +29,7 @@ export class AlbumsService {
         );
     }
 
-    createAlbum(
-        album: AlbumInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    createAlbum(album: AlbumInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.post(`${Microservice.albums}`, album, config).pipe(
             catchError(() => {
                 throw InvalidInput;
@@ -40,11 +37,7 @@ export class AlbumsService {
         );
     }
 
-    updateAlbum(
-        id: string,
-        album: AlbumInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    updateAlbum(id: string, album: AlbumInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.put(`${Microservice.albums}/${id}`, album, config).pipe(
             catchError(() => {
                 throw InvalidInput;
@@ -52,10 +45,7 @@ export class AlbumsService {
         );
     }
 
-    deleteAlbum(
-        id: string,
-        config: IConfig,
-    ): Observable<AxiosResponse<DeleteResponse>> {
+    deleteAlbum(id: string, config: IConfig): Observable<AxiosResponse<DeleteResponse>> {
         return this.http.delete(`${Microservice.albums}/${id}`, config).pipe(
             catchError(() => {
                 throw InvalidInput;

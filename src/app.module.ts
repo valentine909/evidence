@@ -9,7 +9,7 @@ import { LogInterceptor } from './log-interceptor.service';
 import { UsersModule } from './users/users.module';
 import { TracksModule } from './tracks/tracks.module';
 import { GenresModule } from './genres/genres.module';
-import { AlbumsModule } from './artists/albums.module';
+import { AlbumsModule } from './albums/albums.module';
 
 @Module({
     imports: [

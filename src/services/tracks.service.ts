@@ -12,7 +12,7 @@ export class TracksService {
     findAll(limit: number, offset: number): Observable<AxiosResponse<any>> {
         return this.http
             .get(Microservice.tracks, {
-                params: { limit: limit, offset: offset },
+                params: { limit, offset },
             })
             .pipe(
                 catchError(() => {
@@ -29,10 +29,7 @@ export class TracksService {
         );
     }
 
-    createTrack(
-        track: TrackInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    createTrack(track: TrackInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.post(`${Microservice.tracks}`, track, config).pipe(
             catchError(() => {
                 throw InvalidInput;
@@ -40,11 +37,7 @@ export class TracksService {
         );
     }
 
-    updateTrack(
-        id: string,
-        track: TrackInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    updateTrack(id: string, track: TrackInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.put(`${Microservice.tracks}/${id}`, track, config).pipe(
             catchError(() => {
                 throw InvalidInput;
@@ -52,10 +45,7 @@ export class TracksService {
         );
     }
 
-    deleteTrack(
-        id: string,
-        config: IConfig,
-    ): Observable<AxiosResponse<DeleteResponse>> {
+    deleteTrack(id: string, config: IConfig): Observable<AxiosResponse<DeleteResponse>> {
         return this.http.delete(`${Microservice.tracks}/${id}`, config).pipe(
             catchError(() => {
                 throw InvalidInput;

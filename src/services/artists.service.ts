@@ -12,7 +12,7 @@ export class ArtistsService {
     findAll(limit: number, offset: number): Observable<AxiosResponse<any>> {
         return this.http
             .get(Microservice.artists, {
-                params: { limit: limit, offset: offset },
+                params: { limit, offset },
             })
             .pipe(
                 catchError(() => {
@@ -29,10 +29,7 @@ export class ArtistsService {
         );
     }
 
-    createArtist(
-        artist: ArtistInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    createArtist(artist: ArtistInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.post(`${Microservice.artists}`, artist, config).pipe(
             catchError(() => {
                 throw InvalidInput;
@@ -40,11 +37,7 @@ export class ArtistsService {
         );
     }
 
-    updateArtist(
-        id: string,
-        artist: ArtistInput,
-        config: IConfig,
-    ): Observable<AxiosResponse<any>> {
+    updateArtist(id: string, artist: ArtistInput, config: IConfig): Observable<AxiosResponse<any>> {
         return this.http.put(`${Microservice.artists}/${id}`, artist, config).pipe(
             catchError(() => {
                 throw InvalidInput;
@@ -52,10 +45,7 @@ export class ArtistsService {
         );
     }
 
-    deleteArtist(
-        id: string,
-        config: IConfig,
-    ): Observable<AxiosResponse<DeleteResponse>> {
+    deleteArtist(id: string, config: IConfig): Observable<AxiosResponse<DeleteResponse>> {
         return this.http.delete(`${Microservice.artists}/${id}`, config).pipe(
             catchError(() => {
                 throw InvalidInput;
