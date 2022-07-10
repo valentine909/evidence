@@ -5,6 +5,7 @@ export enum Microservice {
     verify = 'http://localhost:3004/v1/users/verify',
     artists = 'http://localhost:3002/v1/artists',
     tracks = 'http://localhost:3006/v1/tracks',
+    genres = 'http://localhost:3001/v1/genres',
 }
 
 export interface IConfig {

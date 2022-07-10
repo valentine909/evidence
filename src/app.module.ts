@@ -8,11 +8,15 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LogInterceptor } from './log-interceptor.service';
 import { UsersModule } from './users/users.module';
 import { TracksModule } from './tracks/tracks.module';
+import { GenresModule } from './genres/genres.module';
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
     imports: [
         UsersModule,
+        ArtistsModule,
         TracksModule,
+        GenresModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             typePaths: ['./**/*.graphql'],
