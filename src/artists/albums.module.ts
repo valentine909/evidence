@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ArtistsResolver } from './artists.resolver';
+import { AlbumsResolver } from './albums.resolver';
 import { HttpModule } from '@nestjs/axios';
 import { ServicesModule } from '../services/services.module';
 
 @Module({
     imports: [HttpModule, ServicesModule],
-    providers: [ArtistsResolver],
+    providers: [AlbumsResolver],
 })
-export class ArtistsModule {}
+export class AlbumsModule {}

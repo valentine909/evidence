@@ -9,12 +9,12 @@ import { LogInterceptor } from './log-interceptor.service';
 import { UsersModule } from './users/users.module';
 import { TracksModule } from './tracks/tracks.module';
 import { GenresModule } from './genres/genres.module';
-import { ArtistsModule } from './artists/artists.module';
+import { AlbumsModule } from './artists/albums.module';
 
 @Module({
     imports: [
         UsersModule,
-        ArtistsModule,
+        AlbumsModule,
         TracksModule,
         GenresModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
