@@ -7,10 +7,12 @@ import { AppService } from './app.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LogInterceptor } from './log-interceptor.service';
 import { UsersModule } from './users/users.module';
+import { TracksModule } from './tracks/tracks.module';
 
 @Module({
     imports: [
         UsersModule,
+        TracksModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             typePaths: ['./**/*.graphql'],
