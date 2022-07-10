@@ -22,3 +22,8 @@ export const InvalidInput = {
 export const InvalidToken = {
     message: 'Invalid token',
 };
+
+export const PaginationSettings = {
+    limit: 5,
+    offset: 0,
+};
